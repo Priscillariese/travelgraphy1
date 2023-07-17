@@ -11,7 +11,7 @@
 
 body {
     background: #1B2029;
-    background-image: url("./images/novasfotos.png");
+    background-image: url("../images/novasfotos.png");
     background-size: cover;
     color: white;
     font-weight: 500;
@@ -29,7 +29,7 @@ body {
 }
 
 .image-home {
-  background-image: url("./images/5.png");
+  background-image: url("../images/5.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
