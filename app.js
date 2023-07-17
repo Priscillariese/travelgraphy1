@@ -1,119 +1,119 @@
-// ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
-require('dotenv').config()
-
-// ℹ️ Connects to the database
-require('./db')
-
-// Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
-
-const express = require('express')
-const app = express()
+require('dotenv').config();
+const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./models/user.model');
+const registerRouter = require('./routes/register');
+const Trip = require('./models/trip');
 
-// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
-require('./config')(app)
+const app = express();
+const MONGODB_URI = 'mongodb://localhost:27017/travelgraphy';
 
-// default value for title local
-const capitalize = string => string[0].toUpperCase() + string.slice(1).toLowerCase()
-const projectName = 'travelgraphy1'
+// Configurações do servidor
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use('/register', registerRouter);
 
-app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`
-
-// 👇 Start handling routes here
-app.get('/', async (req, res) => {
-  try {
-    const users = await User.find({ username: 'B4n3l1ng' });
-    res.json(users);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+// Função de verificação de autenticidade do usuário
+const authenticateUser = (email, password) => {
+  // Aqui você pode implementar a lógica de autenticação adequada
+  // Exemplo simplificado de autenticação
+  if (email === 'admin@example.com' && password === 'password') {
+    return true; // Autenticação bem-sucedida
   }
-});
 
-app.post('/newUser', async (req, res) => {
-  const { username, email, password } = req.body;
+  return false; // Autenticação falhou
+};
 
-  try {
-    const newUser = await User.create({ username, email, password });
-    res.json(newUser);
-  } catch (error) {
-    if (error.code === 11000) {
-      res.status(400).json({ error: 'Duplicate Key' });
-    } else {
-      console.log(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  }
-});
+// Conectar ao banco de dados
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => {
+    console.log('Connected to the database');
 
-app.post('/updateUser', async (req, res) => {
-  const { userId, password } = req.body;
+    // Configuração das rotas
+    app.get('/', (req, res) => {
+      res.render('home');
+    });
+    
+    // Rota da página de registro
+    app.get('/register', (req, res) => {
+      res.render('register');
+    });
+    
+    // Rota da página de login
+    app.get('/signin', (req, res) => {
+      res.render('signin');
+    });
 
-  try {
-    const updatedUser = await User.findByIdAndUpdate(userId, { password }, { new: true });
-    res.json(updatedUser);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+    // Rota de autenticação (página de login)
+    app.post('/signin', (req, res) => {
+      const { email, password } = req.body;
 
-app.post('/deleteUser', async (req, res) => {
-  const { userId } = req.body;
+      // Verifique a autenticidade do usuário usando a lógica de autenticação adequada
+      const isAuthenticated = authenticateUser(email, password);
 
-  try {
-    const deletedUser = await User.findByIdAndDelete(userId);
-    res.json(deletedUser);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+      if (isAuthenticated) {
+        // Autenticação bem-sucedida
+        res.redirect('/admin'); // Redirecione para a página de administração
+      } 
+    
+    });
 
-// Index - home 
-app.get('/', (req, res) => {
-    res.render('index');
+    // Rota da página de administração
+    app.get('/admin', (req, res) => {
+      const trips = [
+        {
+          destination: 'Trip 1',
+          date: '2023-07-12',
+          comment: 'This is trip 1',
+          image: 'trip1.jpg'
+        },
+        {
+          destination: 'Trip 2',
+          date: '2023-07-13',
+          comment: 'This is trip 2',
+          image: 'trip2.jpg'
+        }
+      ];
+    
+      // Renderize a página de administração e passe os dados das trips como variável
+      res.render('admin', { trips });
+    });
+    
+
+    app.get('/admin', (req, res) => {
+      Trip.find()
+        .then((trips) => {
+          res.render('admin', { trips: trips });
+        })
+        .catch((error) => {
+          console.error('Error retrieving trips:', error);
+          res.status(500).send('Error retrieving trips');
+        });
+    });
+    
+
+    app.post('/trips', (req, res) => {
+      const { destination, dates, itinerary } = req.body;
+    
+      const trip = new Trip({ destination, dates, itinerary });
+      trip.save()
+        .then(() => {
+          res.redirect('/');
+        })
+        .catch((error) => {
+          console.error('Error creating the trip:', error);
+          res.status(500).send('Error creating the trip');
+        });
+    });
+
+    // Iniciar o servidor
+    app.listen(3000, () => {
+      console.log("Server started on port 3000");
+    });
+  })
+  .catch((error) => {
+    console.error('Error connecting to the database:', error);
   });
-
-// Display all trips
-app.get('/alltrips', async (req, res) => {
-  console.log(req.query);
-  let filter;
-  if (req.query.searchTerm?.length > 0) {
-    filter = { title: req.query.searchTerm };
-  }
-  const allTripsFromDB = await Trip.find(filter);
-  res.render('allTrips', { trips: allTripsFromDB });
-});
-
-// Display the form to create a new trip
-app.get('/newtrip', (req, res) => {
-  console.log('New Trip Route ping');
-  res.render('newTrip');
-});
-
-app.post('/createtrip', async (req, res) => {
-  console.log(req.body);
-  const { body } = req;
-  const newTrip = await Trip.create(body);
-  res.redirect(`/${newTrip._id}`);
-});
-
-// Display one trip
-app.get('/:tripId', async (req, res) => {
-  const { tripId } = req.params;
-
-  try {
-    const trip = await Trip.findById(tripId);
-    console.log(trip);
-    res.render('oneTrip', trip);
-  } catch (error) {
-    console.log(error);
-    res.send('500 Error server');
-  }
-});
-
-module.exports = app;

@@ -1,14 +1,35 @@
+<!-- layout.ejs -->
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travelgraphy</title>
+  <title>My Travel App</title>
+  <!-- Adicione os links para os arquivos CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-  <%- body %>
-</body>
+  <header>
+    <!-- Inclua o código HTML para o cabeçalho do aplicativo -->
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/trip">My Trips</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <main>
+    <!-- Aqui será renderizado o conteúdo específico de cada página -->
+    <%= body %>
+  </main>
+
+  <footer>
+    <!-- Inclua o código HTML para o rodapé do aplicativo -->
+    <p>My Travel App &copy; 2023</p>
+  </footer>
+
+  <!-- Adicione os scripts JavaScript -->
+  <script src="/public/js/main.js"></script>
+</body>
 </html>

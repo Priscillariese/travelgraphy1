@@ -1,0 +1,47 @@
+<!-- signin.ejs -->
+<!DOCTYPE html>
+<html lang="en" accept-language="en">
+<head>
+  <title>Travelgraphy - Sign In</title>
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+    <h1> 
+      Sign In
+    </h1>
+    
+  <!-- Conteúdo da página de login -->
+  <div class="container">
+    <% if (typeof errorMsg !== 'undefined') { %>
+      <div class="error-message"><%= errorMsg %></div>
+    <% } %>
+  
+    <form action="/signin" method="POST">
+      <label for="email">
+        <span>Email</span>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </label>
+  
+      <label for="password">
+        <span>Password</span>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </label>
+    </div>
+  
+        <a href="/admin">
+        <input type="submit" value="Sign In" id="button-sigin">
+        </a>
+  
+      <a href="/home" class="button-homepage-signin">Home Page</a>
+
+    </form>
+</main>
+<section class="images">
+  <img src="/images/aboutusfoto (1).png" alt="fotocarro">
+  <div class="circle"></div>
+</section>
+</body>
+</html>
