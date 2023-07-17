@@ -161,7 +161,6 @@ app.use('/posts', postRoutes);
       }
     };
 
- 
 
     app.get('/admin', requireAuth, async (req, res) => {
       try {
