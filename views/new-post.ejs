@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" accept-language="en">
+<head>
+  <title>Travelgraphy - New Post</title>
+  <!-- Adicione os links para os arquivos CSS -->
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+<h1>New Travelgraphy Post</h1>
+  <form action="/posts/create" method="POST" enctype="multipart/form-data">
+    
+    <label> Title of your travel:
+      <input type="text" name="title"  placeholder="Title of your travel:"/>
+    </label>
+    <br>
+    <label>Location:
+        <input type="text" name="location" placeholder="Location:" />
+      </label>
+      <br>
+    <label>Comment about your travel:
+      <input type="text" name="comment" placeholder="Comment about your travel:" />
+    </label>
+  
+    <br>
+    <label for="image">
+      Select Image:
+      <input type="file" name="image" accept="image/png, image/jpg" />
+    </label>
+    <br>
+      <input type="submit" value="Create" id="button">
+      
+       <a href="/home" class="button-newpost">Log out</a>
+       <a href="/posts" class="button-alltravelpgraphy">All Travelgraphy</a>
+   
+  </form>
+  </main>
+  <section class="images">
+    <img src="/images/4.png" alt="Mobile">
+    <div class="circle"></div>
+  </section>
+
+  <% if (typeof errorMessage !== "undefined") { %>
+    <p style="color: red"><%= errorMessage %></p>
+  <% } %>
+</div>
+</body>
+</html>

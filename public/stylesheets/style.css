@@ -1,22 +1,167 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0px;
+  border: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
+
 
 body {
     background: #1B2029;
+    background-image: url("./images/novasfotos.png");
+    background-size: cover;
     color: white;
     font-weight: 500;
     display: flex;
-    min-height: 100vh;
-    min-width: 100vw;
+  }
+
+/*  pagina home */
+
+.home {
+    display: flex;
+  justify-content: center;
+  align-items:flex-start;
+  flex-direction: row;
+  height: 100vh; /* Ajuste a altura desejada */
 }
 
+.image-home {
+  background-image: url("./images/5.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position:absolute;
+  top: 0%;
+  left: 00%;
+  z-index: 1;
+}
+  .custom {
+    margin-top: 32rem;
+    margin-right: 15px;
+  }
+  
+  .btn-aboutus,
+  .btn-signin,
+  .btn-register {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6C63FF;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    transition: all .3s ease-in-out;
+    margin-right: 10px;
+    opacity: 0.2; /* Opacidade de 80% */
+  }
+  
+  .btn-aboutus:hover,
+  .btn-signin:hover,
+  .btn-register:hover {
+    background-color: #5952d4;
+    cursor: pointer;
+    opacity: 2; /* Opacidade total ao passar o mouse */
+  }
+
+/*  pagina signin */
+
+.container {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    color: #8880FE;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+#button-sigin {
+cursor: pointer;
+width:100px;
+height: 40px;
+margin-top: 2rem;
+border: none;
+border-radius: 32px;
+background: #6C63FF;
+color: white;
+font-size: 1.1rem;
+transition: all .3s ease-in-out;
+}
+
+#button-sigin:hover {
+  background-color: #5952d4;
+  cursor: pointer;
+  opacity: 2; /* Opacidade total ao passar o mouse */
+}
+  
+.button-homepage-signin{
+
+  position: fixed;
+  top: 3%;
+  left: 80%;
+  cursor: pointer;
+  width: 11%;
+  height: 7%;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 32px;
+  background: #6C63FF;
+  color: white;
+  font-size: 1.1rem;
+  transition: all .3s ease-in-out;
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+  opacity: 0.2; /* Opacidade de 80% */
+}
+
+.button-homepage-signin:hover {
+  background-color: #5952d4;
+  cursor: pointer;
+  opacity: 2; /* Opacidade total ao passar o mouse */
+}
+  
+  
+/*  pagina register */
+
+.button-home {
+    position: fixed;
+    top: 70%;
+    left: 78%;
+    cursor: pointer;
+    width: 11%;
+    height: 7%;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 32px;
+    background: #6C63FF;
+    color: white;
+    font-size: 1.1rem;
+    transition: all .3s ease-in-out;
+    outline: none;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .button-home:hover {
+    background: #5952d4;
+  }
+  
 main {
     width: 50vw;
     display: flex;
@@ -27,8 +172,8 @@ main {
 
 main h1 {
     color: #8880FE;
-    font-size: 3rem;
-    margin-bottom: 3rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
     text-align: center;
 }
 
@@ -96,7 +241,7 @@ main form input {
     width: 300px;
     height: 50px;
     padding: 0 0.5rem;
-    margin-top: 1rem;
+    margin-top: 0rem;
     outline: none;
     color: rgba(166, 166, 166);
     font-size: 1rem;
@@ -104,10 +249,24 @@ main form input {
     border-radius: 8px;
 }
 
+
+main form textarea {
+  background: #161923;
+  width: 300px;
+  height: 50px;
+  padding: 0 0.5rem;
+  margin-top: 0rem;
+  outline: none;
+  color: rgba(166, 166, 166);
+  font-size: 1rem;
+  border: 1px solid #040B18;
+  border-radius: 8px;
+}
+
 main form input[type="submit"] {
     cursor: pointer;
     width: 50%;
-    margin-top: 4rem;
+    margin-top: 1rem;
     border: none;
     border-radius: 32px;
     background: #6C63FF;
@@ -125,11 +284,12 @@ section.images {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    padding: 4rem;
+    padding: 4rem 2rem 4rem 8rem; 
 }
 
 section.images img {
-    width: 100%;
+    width: 190%;
+ 
 }
 
 section.images .circle {
@@ -143,37 +303,367 @@ section.images .circle {
     z-index: -1;
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1200px) {
-    section.images img {
-        width: 110%;
-    }
+/*  adm page */
 
-    section.images .circle {
-        clip-path: circle(35% at right 80%);
-    }
+:root {
+    --circle1-color: #636FA4;
+    --circle2-color: #636FA4;
+    --circle3-color: #636FA4;
+
+}
+nav {
+  display: flex;
+  padding: 2rem 3rem;
+  align-items:flex-start;
+
+}
+
+nav .menu ul {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  margin-left: 10rem;
+
+}
+
+nav .menu ul li {
+  list-style: none;
+}
+
+nav .menu ul a {
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 32px;
+  background: #6C63FF;
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all .3s ease-in-out;
+  opacity: 0.2; /* Opacidade de 80% */
+}
+
+
+nav .menu ul li a:hover {
+  background-color: #5952d4;
+  cursor: pointer;
+  opacity: 2; /* Opacidade total ao passar o mouse */
+}
+
+.admin-main {
+  display: flex;
+  padding: 6rem 12rem;
+  overflow: visible;
+  margin-left: -40rem;
+}
+
+.admin-main section.text h1 {
+  color: #b4c0f5;
+  font-size: 3rem;
+  max-width: 300px;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.admin-main section.text p {
+  color: #636FA4;
+  font-size: 1.5rem;
+  max-width: 300px;
+  margin-bottom: 3rem;
+}
+
+.admin-main section.text span {
+  color: #636FA4;
+  font-size: 1rem;
+  max-width: 300px;
+}
+
+main section.image img {
+  margin-top: 1rem;
+  width: 500px;
+  transition: all .3s ease-in-out;
+}
+
+main section.image img:hover {
+  transform: translateY(-35px);
+}
+
+
+.circle-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle1-color);
+    clip-path: circle(600px at 100% 100px);
+    z-index: -1;
+}
+
+.circle-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle2-color);
+    clip-path: circle(300px at center 900px);
+    z-index: -1;
+}
+
+.circle-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle3-color);
+    clip-path: circle(150px at 50px 300px);
+    z-index: -1;
+}
+
+/*  pagina New Post */
+
+.button-newpost {
+    position: fixed;
+    top: 0%;
+    left: 78%;
+    cursor: pointer;
+    width: 11%;
+    height: 7%;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 32px;
+    background: #6C63FF;
+    color: white;
+    font-size: 1.1rem;
+    transition: all .3s ease-in-out;
+    outline: none;
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.4; /* Opacidade de 80% */
+  }
+  
+  .button-newpost:hover {
+    background: #5952d4;
+    opacity: 2; /* Opacidade total ao passar o mouse */
+  }
+
+.button-alltravelpgraphy {
+  position: fixed;
+  top: 0%;
+  left: 63%;
+  cursor: pointer;
+  width: 13%;
+  height: 7%;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 32px;
+  background: #6C63FF;
+  color: white;
+  font-size: 1.1rem;
+  transition: all .3s ease-in-out;
+  outline: none;
+  text-decoration: none;
+  text-align:center;
+  opacity: 0.4; /* Opacidade de 80% */
+}
+
+
+  .button-alltravelpgraphy:hover {
+    background: #5952d4;
+    opacity: 2; /* Opacidade total ao passar o mouse */
+  }
+  
+/*  pagina ALL post */
+
+.photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 50px;
+  }
+  
+  .photo-grid img {
+    width: 50%;
+    margin-bottom: 20px;
+  }
+
+
+/*  pagina aboutus */
+
+.aboutus-container {
+  padding: 0 5rem;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.aboutus-title {
+  color: #8880FE;
+  font-size: 3rem;
+  margin-top: 10rem;
+  margin-bottom: 2rem;
+}
+
+.aboutus-description {
+  color: #7158C4;
+  font-size: 1.2rem;
+}
+
+.aboutus-button {
+  margin-top: 3rem;
+  margin-left: 30rem;
+}
+
+.homepage-ton,
+.aboutus-ton,
+.signin-ton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #6C63FF;
+  color: white;
+  text-decoration: none;
+  border-radius: 32px;
+  transition: all .3s ease-in-out;
+  margin-right: 10px;
+  opacity: 0.2; /* Opacidade de 80% */
+}
+
+.aboutus-button a:hover {
+  background-color: #5952d4;
+  cursor: pointer;
+  opacity: 1;
+} 
+
+.us {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -8rem;
+  margin-left: 15rem;
+  opacity: 0.5;
+}
+
+.us img {
+  margin-top: 0rem;
+  width: 50px; /* Ajuste o tamanho da imagem conforme necessário */
+  height: 50px;
+
+
+}
+
+  /* posts photos */
+
+  .photo-album {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Define 3 colunas com tamanho igual */
+  grid-gap: 10px; /* Define o espaçamento entre as fotos */
+}
+
+.photo-item {
+  text-align: center;
+  padding: 7rem 2rem 2rem 2rem;
+}
+
+
+.photo-item img {
+  width: 350px; /* Define a largura da foto */
+  height: 250px; /* Define a altura da foto */
+  object-fit: cover;
+
+}
+
+.photo-info {
+  margin-top: 5px;
+}
+
+.photo-info h3 {
+  margin-top: 2px;
+  color: #ccc9fc;
+}
+
+
+.photo-info h4 {
+  margin-top: 5px;
+  color: #a39ff1;
+}
+
+.photo-info p {
+  margin-top: 5px;
+  color: #6C63FF;
+}
+
+  .button-container1 {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Alinha os itens verticalmente */
+    margin-left: 5rem;
+  }
+  
+  #buttonDE  {
+    display: inline-block;
+    padding: 14px 24px;
+    background-color: #6C63FF;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    transition: all .3s ease-in-out;
+    margin-right: 10px;
+  }
+
+
+  .buttonDU  {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6C63FF;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    transition: all .3s ease-in-out;
+    margin-right: 10px;
+  }
+  
+  #buttonDE, 
+  .buttonDU:hover {
+    background-color: #5952d4;
+    cursor: pointer;
+  }
+  
+  
+
+  
+
+@media only screen and (min-width: 900px) and (max-width: 1200px) {
+  section.images img {
+      width: 110%;
+  }
+
+  section.images .circle {
+      clip-path: circle(35% at right 80%);
+  }
 }
 
 @media only screen and (max-width: 900px) {
-    section.images {
-        display: none;
-        visibility: hidden;
-    }
+  section.images {
+      display: none;
+      visibility: hidden;
+  }
 
-    main {
-        width: 100vw;
-    }
+  main {
+      width: 100vw;
+  }
 }
 
 @media only screen and (max-width: 450px) {
-    main h1 {
-        font-size: 2rem;
-    }
-
-    main .alternative span {
-        font-size: 0.8rem;
-    }
-
-    main form label span, main form input[type="submit"] {
-        font-size: 1rem;
-    }
+  main h1 {
+      font-size: 2rem;
+  }
 }

@@ -1,119 +1,279 @@
-// ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
-require('dotenv').config()
 
-// ℹ️ Connects to the database
+require('dotenv').config()
 require('./db')
 
-// Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
+const session = require('express-session');
+const mongoose = require('mongoose');
+const multer = require('multer');
+const path = require('path');
+const User = require('./models/user');
+const Post = require('./models/Post.model');
+const postRoutes = require('./routes/posts.routes');
+const bcrypt = require('bcryptjs');
+
 
 const express = require('express')
-const app = express()
-const mongoose = require('mongoose');
-const User = require('./models/user.model');
 
-// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
+const app = express();
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      maxAge: 60000 * 60 * 24 * 7//
+    }
+  })
+);
+
+
+
 require('./config')(app)
 
-// default value for title local
-const capitalize = string => string[0].toUpperCase() + string.slice(1).toLowerCase()
-const projectName = 'travelgraphy1'
 
-app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`
+const capitalize = require('./utils/capitalize')
+const projectName = 'travelgraphy'
 
-// 👇 Start handling routes here
-app.get('/', async (req, res) => {
-  try {
-    const users = await User.find({ username: 'B4n3l1ng' });
-    res.json(users);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+app.locals.appTitle = `${capitalize(projectName)} `
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use('/posts', postRoutes);
+
+
+// Middleware para definir a propriedade currentUser
+app.use((req, res, next) => {
+  // Verifique se o usuário está autenticado
+  if (req.session.currentUser) {
+    // Defina a propriedade currentUser na sessão
+    res.locals.currentUser = req.session.currentUser;
+  } else {
+    // Se o usuário não estiver autenticado, defina a propriedade como null
+    res.locals.currentUser = null;
   }
+  next();
 });
 
-app.post('/newUser', async (req, res) => {
-  const { username, email, password } = req.body;
 
-  try {
-    const newUser = await User.create({ username, email, password });
-    res.json(newUser);
-  } catch (error) {
-    if (error.code === 11000) {
-      res.status(400).json({ error: 'Duplicate Key' });
+
+    // Rota da página inicial
+    app.get('/', (req, res) => {
+      res.render('home');
+    });
+
+
+    // Rota da página about us
+    app.get('/aboutUs', (req, res) => {
+      res.render('aboutUs');
+    });
+
+
+    // Rota da página de registro
+    app.get('/register', (req, res) => {
+      res.render('register');
+    });
+
+
+    // Rota para lidar com o registro de usuários (POST)
+    app.post('/register', async (req, res) => {
+      try {
+        // Obtenha os dados do formulário de registro
+        const { username, email, password } = req.body;
+
+        // Crie um novo usuário usando o modelo User
+        const user = new User({ username, email, password });
+
+        // Salve o usuário no banco de dados
+        await user.save();
+
+        // Redirecione para outra página após o registro bem-sucedido
+        res.redirect('/signin');
+      } catch (error) {
+        console.error('Error registering user:', error);
+        res.status(500).send('Error registering user');
+      }
+    });
+
+    // Rota da página de login
+    app.get('/signin', (req, res) => {
+      res.render('signin');
+    });
+
+    app.get('/home', (req, res) => {
+      // Lógica para renderizar a página home aqui
+      res.render('home'); // Substitua "home" pelo nome correto do arquivo da página home
+    });
+    
+    // Rota de autenticação (página de login)
+    app.post('/signin', async (req, res) => {
+      const { email, password } = req.body;
+
+      try {
+        // Verifique a autenticidade do usuário consultando o banco de dados
+        const user = await User.findOne({ email });
+
+        if (user) {
+          // Verifique se a senha fornecida corresponde à senha armazenada no banco de dados
+          const isPasswordValid = await user.comparePassword(password);
+
+          if (isPasswordValid) {
+            // Autenticação bem-sucedida
+            req.session.userId = user._id; // Armazene o ID do usuário na sessão
+            res.redirect('/admin'); // Redirecione para a página de administração
+          } else {
+            // Senha incorreta
+            res.render('signin', { errorMsg: 'Email or password is incorrect' });
+          }
+        } else {
+          // Usuário não encontrado
+          res.render('signin', { errorMsg: 'Email or password is incorrect' });
+        }
+      } catch (error) {
+        console.error('Error authenticating user:', error);
+        res.status(500).send('Error authenticating user');
+      }
+    });
+
+   
+
+// postRoutes middleware
+const postRoutesMiddleware = (req, res, next) => {
+  // código do middleware específico para as rotas de posts
+  next(); // chamar next() para passar a execução para o próximo middleware ou rota
+};
+
+// Utilização do middleware postRoutes para rotas relacionadas aos posts
+app.use('/posts', postRoutes);
+
+
+ // Middleware de autenticação
+
+    const requireAuth = (req, res, next) => {
+      if (req.session.userId) {
+        // O usuário está autenticado, permita o acesso à rota de administração
+        next();
+      } else {
+        // O usuário não está autenticado, redirecione para a página de login
+        res.redirect('/signin');
+      }
+    };
+
+ 
+
+    app.get('/admin', requireAuth, async (req, res) => {
+      try {
+        // Lógica para obter o nome do usuário a partir do ID armazenado na sessão
+        const userId = req.session.userId;
+        const user = await User.findById(userId);
+        const username = user.username;
+    
+        // Renderize a página de administração e passe o nome do usuário como variável
+        res.render('admin', { username });
+      } catch (error) {
+        console.error('Error retrieving user:', error);
+        res.status(500).send('Error retrieving user');
+      }
+    });
+
+
+   // Rota de logout
+app.get('/logout', (req, res) => {
+  req.session.destroy((error) => {
+    if (error) {
+      console.error('Error logging out:', error);
+      res.status(500).send('Error logging out');
     } else {
-      console.log(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.redirect('/signin'); // Redirecione para a página de login após o logout
     }
-  }
-});
-
-app.post('/updateUser', async (req, res) => {
-  const { userId, password } = req.body;
-
-  try {
-    const updatedUser = await User.findByIdAndUpdate(userId, { password }, { new: true });
-    res.json(updatedUser);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-app.post('/deleteUser', async (req, res) => {
-  const { userId } = req.body;
-
-  try {
-    const deletedUser = await User.findByIdAndDelete(userId);
-    res.json(deletedUser);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-// Index - home 
-app.get('/', (req, res) => {
-    res.render('index');
   });
+});
 
-// Display all trips
-app.get('/alltrips', async (req, res) => {
-  console.log(req.query);
-  let filter;
-  if (req.query.searchTerm?.length > 0) {
-    filter = { title: req.query.searchTerm };
+
+    // Rota para exibir todos os usuários
+    app.get('/users', async (req, res) => {
+      try {
+        const users = await User.find();
+        res.render('users', { users });
+      } catch (error) {
+        console.error('Error retrieving users:', error);
+        res.status(500).send('Error retrieving users');
+      }
+    });
+
+    // Rota para criar um novo usuário
+    app.post('/users', async (req, res) => {
+      try {
+        const { username, email, password } = req.body;
+        const user = new User({ username, email, password });
+        await user.save();
+        res.redirect('/users');
+      } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).send('Error creating user');
+      }
+    });
+
+// Middleware para definir a variável currentUser
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user || null;
+  next();
+});
+
+// Rota para a página "posts.ejs"
+app.get('/posts', (req, res) => {
+  // Verifique se o usuário está autenticado
+  if (req.isAuthenticated()) {
+    const userId = req.user.id; 
+
+    // Recupere os posts do usuário autenticado com base no ID no banco de dados
+    Post.find({ userId: userId })
+      .then(posts => {
+        
+        res.render('posts', { posts: posts, currentUser: req.user });
+      })
+      .catch(err => {
+        
+      });
+  } else {
+    
+    res.redirect('/signin'); 
   }
-  const allTripsFromDB = await Trip.find(filter);
-  res.render('allTrips', { trips: allTripsFromDB });
 });
 
-// Display the form to create a new trip
-app.get('/newtrip', (req, res) => {
-  console.log('New Trip Route ping');
-  res.render('newTrip');
+
+// Rota para criar um novo post
+app.get('/new-post', (req, res) => {
+  res.render('new-post');
 });
 
-app.post('/createtrip', async (req, res) => {
-  console.log(req.body);
-  const { body } = req;
-  const newTrip = await Trip.create(body);
-  res.redirect(`/${newTrip._id}`);
-});
-
-// Display one trip
-app.get('/:tripId', async (req, res) => {
-  const { tripId } = req.params;
-
+app.post('/new-post', async (req, res) => {
   try {
-    const trip = await Trip.findById(tripId);
-    console.log(trip);
-    res.render('oneTrip', trip);
+    const { location, description, comment, image } = req.body;
+    const post = new Post ({ location, description,  comment, image });
+
+    await post.save();
+    res.redirect('/posts');
   } catch (error) {
-    console.log(error);
-    res.send('500 Error server');
+    console.error('Error creating post:', error);
+    res.status(500).send('Error creating post');
   }
 });
 
-module.exports = app;
+
+
+
+
+
+
+
+
+
+
+
+
+require('./error-handling')(app)
+
+module.exports = app
