@@ -18,8 +18,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    
-
+  
   })
 );
 
@@ -36,14 +35,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-// Middleware para definir a propriedade currentUser
+
 app.use((req, res, next) => {
-  // Verifique se o usuário está autenticado
-  if (req.session.currentUser) {
-    // Defina a propriedade currentUser na sessão
-    res.locals.currentUser = req.session.currentUser;
+ if (req.session.currentUser) {
+   res.locals.currentUser = req.session.currentUser;
   } else {
-    // Se o usuário não estiver autenticado, defina a propriedade como null
     res.locals.currentUser = null;
   }
   next();
