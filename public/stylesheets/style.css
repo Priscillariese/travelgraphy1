@@ -40,32 +40,35 @@ body {
   left: 00%;
   z-index: 1;
 }
-  .custom {
-    margin-top: 32rem;
-    margin-right: 15px;
-  }
-  
-  .btn-aboutus,
-  .btn-signin,
-  .btn-register {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #6C63FF;
-    color: white;
-    text-decoration: none;
-    border-radius: 32px;
-    transition: all .3s ease-in-out;
-    margin-right: 10px;
-    opacity: 0.2; /* Opacidade de 80% */
-  }
-  
-  .btn-aboutus:hover,
-  .btn-signin:hover,
-  .btn-register:hover {
-    background-color: #5952d4;
-    cursor: pointer;
-    opacity: 2; /* Opacidade total ao passar o mouse */
-  }
+
+.custom {
+  display: inline-block;
+  margin-right: 15px; /* Ajuste a margem direita conforme necessário */
+  margin-top: 34.5rem;
+}
+
+.btn-aboutus,
+.btn-signin,
+.btn-register {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color:#64382f;
+  color: white;
+  text-decoration: none;
+  border-radius: 32px;
+  transition: all .3s ease-in-out;
+  opacity: 0.4; /* Opacidade de 40% */
+margin-left: 2rem;
+}
+
+.btn-aboutus:hover,
+.btn-signin:hover,
+.btn-register:hover {
+  background-color: #5952d4;
+  cursor: pointer;
+  opacity: 1; /* Opacidade total ao passar o mouse */
+}
+
 
 /*  pagina signin */
 
@@ -109,7 +112,6 @@ transition: all .3s ease-in-out;
 }
   
 .button-homepage-signin{
-
   position: fixed;
   top: 3%;
   left: 80%;
