@@ -9,7 +9,7 @@ router.get("/posts", async (req, res) => {
   console.log(req.session);
   try {
     const posts = await Post.find({ userId: req.session.userId });
-    res.render("posts", { posts, currentUser: req.user });
+    res.render("Posts", { posts, currentUser: req.user });
   } catch (error) {
     console.error("Error retrieving posts:", error);
     res.status(500).send("Error retrieving posts");
