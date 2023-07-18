@@ -2,10 +2,13 @@ const router = require("express").Router();
 const Post = require("../models/Post.model");
 const uploader = require("../middleware/cloudinary.config");
 
-router.get("/", async (req, res) => {
-  console.log(req.session)
+
+
+
+router.get("/posts", async (req, res) => {
+  console.log(req.session);
   try {
-    const posts = await Post.find({userId:req.session.userId});
+    const posts = await Post.find({ userId: req.session.userId });
     res.render("posts", { posts, currentUser: req.user });
   } catch (error) {
     console.error("Error retrieving posts:", error);
@@ -69,16 +72,21 @@ router.get("/posts/:postId/update", async (req, res) => {
 router.post("/posts/:postId/update", uploader.single("image"), async (req, res) => {
   const postId = req.params.postId;
   const { title, comment, location } = req.body;
-  const payload = { title, comment, location };
+  let payload = { title, comment, location };
 
   if (req.file) {
     payload.image = req.file.path;
-console.log(req.file.path)
+    console.log(req.file.path);
+
     const previousPost = await Post.findById(postId);
     if (previousPost.image) {
       // Lógica para excluir a imagem anterior do Cloudinary
       // ...
     }
+  } else {
+    // Caso a imagem não seja enviada, mantenha o valor atual do campo image no banco de dados
+    const existingPost = await Post.findById(postId);
+    payload.image = existingPost.image;
   }
 
   try {
@@ -90,25 +98,6 @@ console.log(req.file.path)
   }
 });
 
-
-// Rota para a página "posts.ejs"
-router.get('/posts', (req, res) => {
-
-console.log (req.session)
-const userId = req.session.userId
-
-
-    // Recupere os posts do usuário autenticado com base no ID no banco de dados
-    Post.find({ userId: userId })
-      .then(posts => {
-        
-        res.render('posts', { posts: posts});
-      })
-      .catch(err => {
-      console.log (err)
-      });
-
-  });
 
 // Rota para criar um novo post
 router.get('/new-post', (req, res) => {
@@ -127,10 +116,6 @@ router.post('/new-post', async (req, res) => {
     res.status(500).send('Error creating post');
   }
 });
-
-
-
-
 
 
 

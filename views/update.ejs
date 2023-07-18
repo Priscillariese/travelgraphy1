@@ -17,7 +17,7 @@
    Update the Travelpgraphy
     </h1>
 
-<form action="/posts/<%-post._id%>/update" method="POST">
+<form action="/posts/<%-post._id%>/update" method="POST" enctype="multipart/form-data">
 
   <label for="Title:">
     <span>Title:</span>
@@ -26,20 +26,20 @@
   <br>
 
   <label for="Location:">
-  <span>Location:</span> 
-  <input type="text" name="Location:" value="<%= post.location %>">
+    <span>Location:</span> 
+    <input type="text" name="location" value="<%= post.location %>">
   </label>
-
-  <label for="Coment about your travel:">
-  <span>Comment about your travel:</span> 
-  <textarea name="comment about your travel:"><%= post.comment %></textarea>
+  
+  <label for="Comment about your travel:">
+    <span>Comment about your travel:</span> 
+    <textarea name="comment"><%= post.comment %></textarea>
   </label>
- 
-
-  <label for="Photo: ">
-  <span>Photo: </span> 
-  <input type="file" name="image" value="<%= post.image %>">
-  </label><br>
+  
+  <label for="Photo:">
+    <span>Photo:</span> 
+    <input type="file" name="image">
+  </label>
+  <br>
   <input type="submit" value="Update" id="button">
 </form>
 </main>

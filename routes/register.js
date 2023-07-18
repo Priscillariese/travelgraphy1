@@ -3,16 +3,6 @@ const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
-router.get('/', (req, res) => {
-  res.render('home');
-});
-
-
-// Rota da página about us
-router.get('/aboutUs', (req, res) => {
-  res.render('aboutUs');
-});
-
 
 
 
