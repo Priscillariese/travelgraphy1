@@ -66,15 +66,16 @@ router.get("/posts/:postId/update", async (req, res) => {
   }
 });
 
-router.post("/posts/:postId/update", uploader.single("image"), async (req, res) => {
+router.post("/postId/update", uploader.single("image"), async (req, res) => {
   const postId = req.params.postId;
   const { title, comment, location } = req.body;
   const payload = { title, comment, location };
 
   if (req.file) {
     payload.image = req.file.path;
-console.log(req.file.path)
-    const previousPost = await Post.findById(postId);
+      console.log(req.file.path)
+    
+const previousPost = await Post.findById(postId);
     if (previousPost.image) {
       // Lógica para excluir a imagem anterior do Cloudinary
       // ...
@@ -83,13 +84,12 @@ console.log(req.file.path)
 
   try {
     await Post.findByIdAndUpdate(postId, payload);
-    res.redirect("/posts");
+    res.redirect('/posts');
   } catch (error) {
     console.error("Error updating post:", error);
-    res.redirect("/posts");
+    res.redirect('/posts');
   }
 });
-
 
 // Rota para a página "posts.ejs"
 router.get('/posts', (req, res) => {

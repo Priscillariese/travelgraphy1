@@ -4,19 +4,6 @@ const User = require('../models/user');
 
 
 
-    // Rota da página inicial
-    router.get('/', (req, res) => {
-      res.render('home');
-    });
-
-
-    // Rota da página about us
-   router.get('/aboutUs', (req, res) => {
-      res.render('aboutUs');
-    });
-
-
-
 
 // Rota para exibir a página de registro de usuários
 router.get('/register', (req, res) => {
