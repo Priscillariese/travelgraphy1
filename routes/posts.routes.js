@@ -18,7 +18,7 @@ router.get("/create", (req, res) => {
 });
 
 
-router.post("/create", uploader.single("image"), async (req, res) => {
+router.post("/posts/create", uploader.single("image"), async (req, res) => {
   const { location, title, comment } = req.body;
   const payload = { location, title, comment, userId: req.session.userId};
   if (req.file) {
@@ -36,7 +36,7 @@ router.post("/create", uploader.single("image"), async (req, res) => {
   }
 });
 
-router.post("/:postId/delete", async (req, res) => {
+router.post("/posts/:postId/delete", async (req, res) => {
   const postId = req.params.postId;
 
   try {
@@ -54,7 +54,7 @@ router.post("/:postId/delete", async (req, res) => {
   }
 });
 
-router.get("/:postId/update", async (req, res) => {
+router.get("/posts/:postId/update", async (req, res) => {
   const postId = req.params.postId;
 
   try {
@@ -65,7 +65,8 @@ router.get("/:postId/update", async (req, res) => {
     res.redirect("/posts");
   }
 });
-router.post("/:postId/update", uploader.single("image"), async (req, res) => {
+
+router.post("/posts/:postId/update", uploader.single("image"), async (req, res) => {
   const postId = req.params.postId;
   const { title, comment, location } = req.body;
   const payload = { title, comment, location };
@@ -88,6 +89,49 @@ console.log(req.file.path)
     res.redirect("/posts");
   }
 });
+
+
+// Rota para a página "posts.ejs"
+router.get('/posts', (req, res) => {
+
+console.log (req.session)
+const userId = req.session.userId
+
+
+    // Recupere os posts do usuário autenticado com base no ID no banco de dados
+    Post.find({ userId: userId })
+      .then(posts => {
+        
+        res.render('posts', { posts: posts});
+      })
+      .catch(err => {
+      console.log (err)
+      });
+
+  });
+
+// Rota para criar um novo post
+router.get('/new-post', (req, res) => {
+  res.render('new-post');
+});
+
+router.post('/new-post', async (req, res) => {
+  try {
+    const { location, description, comment, image } = req.body;
+    const post = new Post ({ location, description,  comment, image });
+
+    await post.save();
+    res.redirect('/posts');
+  } catch (error) {
+    console.error('Error creating post:', error);
+    res.status(500).send('Error creating post');
+  }
+});
+
+
+
+
+
 
 
 module.exports = router;
