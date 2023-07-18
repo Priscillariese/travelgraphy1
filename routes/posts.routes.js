@@ -69,7 +69,7 @@ router.get("/posts/:postId/update", async (req, res) => {
   }
 });
 
-router.post("/postId/update", uploader.single("image"), async (req, res) => {
+router.post("/posts/:postId/update", uploader.single("image"), async (req, res) => {
   const postId = req.params.postId;
   const { title, comment, location } = req.body;
   let payload = { title, comment, location };
@@ -91,10 +91,10 @@ router.post("/postId/update", uploader.single("image"), async (req, res) => {
 
   try {
     await Post.findByIdAndUpdate(postId, payload);
-    res.redirect('/posts');
+    res.redirect("/posts");
   } catch (error) {
     console.error("Error updating post:", error);
-    res.redirect('/posts');
+    res.redirect("/posts");
   }
 });
 
