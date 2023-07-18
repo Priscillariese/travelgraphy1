@@ -11,11 +11,10 @@
 
 body {
     background: #1B2029;
-    background-image: url("../images/novasfotos.png");
-    background-size: cover;
     color: white;
     font-weight: 500;
     display: flex;
+    background-image: url("../images/novasfotos.png");
   }
 
 /*  pagina home */
@@ -495,14 +494,19 @@ main section.image img:hover {
 
 /*  pagina aboutus */
 
+
 .aboutus-container {
-  padding: 0 5rem;
-  position: absolute;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
+  background-image: url("../images/us.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position:absolute;
+  top: 0%;
+  left: 00%;
+  z-index: 1;
+ 
 }
 
 .aboutus-title {
@@ -518,8 +522,8 @@ main section.image img:hover {
 }
 
 .aboutus-button {
-  margin-top: 3rem;
-  margin-left: 30rem;
+  margin-top: 2rem;
+  margin-left: 60rem;
 }
 
 .homepage-ton,
