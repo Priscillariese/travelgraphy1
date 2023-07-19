@@ -140,7 +140,7 @@ transition: all .3s ease-in-out;
 /*  pagina register e formato para sign in, newpost, up date */
 
 .button-home {
-    position: fixed;
+    position: absolute;
     top: 0%;
     left: 88%;
     cursor: pointer;
@@ -418,26 +418,24 @@ main section.image img:hover {
 /*  pagina New Post */
 
 .button-newpost {
-    position: fixed;
-    top: 0%;
-    left: 78%;
-    cursor: pointer;
-    width: 11%;
-    height: 7%;
-    margin-top: 1rem;
-    border: none;
-    border-radius: 32px;
-    background: #7D6E83;
-    color: white;
-    font-size: 1.1rem;
-    transition: all .3s ease-in-out;
-    outline: none;
-    text-decoration: none;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    opacity: 0.4; /* Opacidade de 80% */
-  }
+  position: absolute;
+  top: 0;
+  left: 80%;
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  width: 8rem;
+  justify-content: center;
+  text-align: center;
+  background-color: #7D6E83;
+  color: white;
+  text-decoration: none;
+  border-radius: 32px;
+  transition: all .3s ease-in-out;
+  margin: 10px; /* Ajuste o valor conforme necessário para controlar o espaçamento */
+  opacity: 0.4; /* Opacidade de 80% */
+}
+
   
   .button-newpost:hover {
     background: #b9a0c4;
@@ -445,9 +443,9 @@ main section.image img:hover {
   }
 
 .button-alltravelpgraphy {
-  position: fixed;
+  position: absolute;
   top: 0%;
-  left: 63%;
+  left: 66%;
   cursor: pointer;
   width: 13%;
   height: 7%;
@@ -629,9 +627,9 @@ main section.image img:hover {
  
   
   .Admin {
-    position: fixed;
+    position: absolute;
     top: 0;
-    left: 67%;
+    left: 70%;
     display: flex;
     align-items: center;
     height: 3rem;
