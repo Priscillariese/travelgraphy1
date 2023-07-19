@@ -56,7 +56,7 @@ body {
   border-radius: 32px;
   transition: all .3s ease-in-out;
   opacity: 0.4; /* Opacidade de 40% */
-margin-left: 2rem;
+  margin-left: 2rem;
 }
 
 .btn-aboutus:hover,
@@ -156,6 +156,8 @@ transition: all .3s ease-in-out;
     outline: none;
     text-decoration: none;
     text-align: center;
+    justify-content: center;
+    align-items: center;
   }
   
   .button-home:hover {
@@ -370,8 +372,8 @@ nav .menu ul li a:hover {
 }
 
 main section.image img {
-  margin-top: 1rem;
-  width: 500px;
+  margin-top: 2rem;
+  width: 150px;
   transition: all .3s ease-in-out;
 }
 
@@ -431,7 +433,9 @@ main section.image img:hover {
     transition: all .3s ease-in-out;
     outline: none;
     text-decoration: none;
+    align-items: center;
     text-align: center;
+    justify-content: center;
     opacity: 0.4; /* Opacidade de 80% */
   }
   
@@ -457,6 +461,8 @@ main section.image img:hover {
   outline: none;
   text-decoration: none;
   text-align:center;
+  align-items: center;
+  justify-content: center;
   opacity: 0.4; /* Opacidade de 80% */
 }
 
@@ -508,45 +514,84 @@ main section.image img:hover {
   opacity: 1;
 } 
 
-  /* posts photos */
+  /* All posts photos */
+
+  :root {
+    --circle4-color: linear-gradient(to bottom, #554e58, #62306D);
+    --circle6-color: linear-gradient(to bottom, #554e58, #62306D);
+  }
+  
+  .circle-4 {
+    position: absolute;
+    top: -5rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle4-color);
+    clip-path: circle(100px at 100% 100px);
+    z-index: -1;
+  }
+  
+  .circle-6 {
+    position: absolute;
+    top: -15rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle6-color);
+    clip-path: circle(150px at 50px 200px);
+    z-index: -1;
+  }
+  
 
   .photo-album {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Define 3 colunas com tamanho igual */
   grid-gap: 10px; /* Define o espaçamento entre as fotos */
+  margin-top: 4rem;
+
 }
 
 .photo-item {
   text-align: center;
   padding: 7rem 2rem 2rem 2rem;
+
 }
 
+.photo-item:nth-child(3n+1),
+.photo-item:nth-child(3n+2),
+.photo-item:nth-child(3n+3) {
+  box-shadow: 0 0 10px rgba(56, 5, 85, 0.2); /* Altere os valores RGB e o valor de transparência conforme necessário */
+  margin-bottom: 20px; /* Ajuste o valor conforme necessário */
+  margin-left: 20px;
+  border-color: #3D4A55;
+}
 
 .photo-item img {
   width: 350px; /* Define a largura da foto */
   height: 250px; /* Define a altura da foto */
-  object-fit: cover;
-
+  object-fit: cover
 }
+
 
 .photo-info {
   margin-top: 5px;
 }
 
 .photo-info h3 {
-  margin-top: 2px;
-  color: #7D6E83;
+  margin-top: 5px;
+  color: #3D4A55;
 }
 
 
 .photo-info h4 {
   margin-top: 5px;
-  color: #7D6E83;
+  color: #3D4A55;
 }
 
 .photo-info p {
   margin-top: 5px;
-  color: #7D6E83;
+  color: #3D4A55;
 }
 
   .button-container1 {
@@ -570,7 +615,7 @@ main section.image img:hover {
   }
 
 
-  .buttonDU  {
+  #buttonDU  {
     display: inline-block;
     padding: 10px 20px;
     background-color: #7D6E83;
@@ -581,12 +626,31 @@ main section.image img:hover {
     margin-right: 10px;
   }
   
-  #buttonDE, 
-  .buttonDU:hover {
-    cursor: pointer;
+ 
+  
+  .Admin {
+    position: fixed;
+    top: 0;
+    left: 67%;
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    width: 8rem;
+    justify-content: center;
+    text-align: center;
+    background-color: #7D6E83;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    transition: all .3s ease-in-out;
+    margin: 10px; /* Ajuste o valor conforme necessário para controlar o espaçamento */
+    opacity: 0.4; /* Opacidade de 80% */
   }
-  
-  
+
+  .Admin:hover {
+  background: #b9a0c4;
+  opacity: 2; /* Opacidade total ao passar o mouse */
+}
 
 
 @media only screen and (min-width: 900px) and (max-width: 1200px) {

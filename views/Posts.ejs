@@ -9,6 +9,9 @@
 <body>
   <header>
     <h1>ALL Travelgraphy</h1>
+    <div class="circle-4"></div>
+    <div class="circle-6"></div>
+
     <div class="photo-album">
       <% posts.forEach(post => { %>
       
@@ -24,7 +27,7 @@
             </div>
 
             <div class="button-container1">
-              <a href="/posts/<%- post._id %>/update" class="buttonDU">Update</a>
+              <a href="/posts/<%- post._id %>/update" id="buttonDU">Update</a>
               <form action="/posts/<%- post._id %>/delete" method="POST">
                   <input type="submit" value="Delete" id="buttonDE">
               </form>
@@ -33,6 +36,7 @@
         <% }) %>
   </div>
     <a href="/new-post" class="button-newpost">New Post</a>
+    <a href="/admin" class="Admin">Admin</a>
   </header>
 </body>
 </html>
