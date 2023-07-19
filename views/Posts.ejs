@@ -3,7 +3,7 @@
 <head>
   <title>Travelgraphy - All Posts</title>
   <link rel="icon" href="/images/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
@@ -11,8 +11,7 @@
     <h1>ALL Travelgraphy</h1>
     <div class="photo-album">
       <% posts.forEach(post => { %>
-        <% if (post.user === currentUser?.id) { %>
-
+      
           <div class="photo-item">
             <div class="photo">
               <img src="<%- post.image %>" alt="image">
@@ -31,8 +30,7 @@
               </form>
             </div>
           </div>
-        <% } %>
-      <% }) %>
+        <% }) %>
   </div>
     <a href="/new-post" class="button-newpost">New Post</a>
   </header>
