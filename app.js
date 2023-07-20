@@ -45,13 +45,22 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  res.render('home', { contents: '' });
-});
+  // Rota da página inicial
+  app.get('/', (req, res) => {
+    res.render('home');
+  });
 
+
+  // Rota da página about us
 app.get('/aboutUs', (req, res) => {
-  res.render('aboutUs',{ contents: '' });
-    });
+    res.render('aboutUs');
+  });
+
+
+// Rota de pagina signin 
+app.get('/signin', (req, res) => {
+  res.render('signin');
+});
 
 
  
