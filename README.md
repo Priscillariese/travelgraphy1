@@ -44,3 +44,7 @@ Special thanks to our mentors and advisors for their guidance and support throug
 
 ### CONTACT
 For any inquiries or feedback, please reach out to the Travelgraphy team at @carolinefabri.dev@hotmail.com or @priscillariese.dev@hotmail.com
+
+### LINKS
+- Link project https://travelgraphyapp.adaptable.app/
+ - Slides Apresentation
