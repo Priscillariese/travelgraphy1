@@ -6,12 +6,22 @@
   <link rel="icon" href="/images/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
-
+<header class="cabeca">
+  <div class="layout">
+    <h2>Travelgraphy</h2>
+  </div>
+  <nav class="layoutTeste">
+    <ul>
+      <li><a href="/home">Home Page |</a></li>
+      <li><a href="/aboutUs">About Us |</a></li>
+      <li><a href="/"> Logout </a></li>
+    </ul>
+  </nav>
+</header>
 <body>
   <main>
-<h1>New Travelgraphy Post</h1>
+<h1>New  Post</h1>
   <form action="/posts/create" method="POST" enctype="multipart/form-data">
-    
     <label> Title of your travel:
       <input type="text" name="title"  placeholder="Title of your travel:"/>
     </label>
@@ -23,7 +33,6 @@
     <label>Comment about your travel:
       <input type="text" name="comment" placeholder="Comment about your travel:" />
     </label>
-  
     <br>
     <label for="image">
       Select Image:
@@ -31,20 +40,19 @@
     </label>
     <br>
       <input type="submit" value="Create" id="button">
-      
-       <a href="/home" class="button-newpost">Log out</a>
        <a href="/posts" class="button-alltravelpgraphy">All Travelgraphy</a>
-   
   </form>
   </main>
   <section class="images">
     <img src="/images/4.png" alt="Mobile">
-
+    <div class="circle"></div>
   </section>
-
   <% if (typeof errorMessage !== "undefined") { %>
     <p style="color: red"><%= errorMessage %></p>
   <% } %>
 </div>
+<footer>
+  <p>Developed by Caroline & Priscilla &copy; 2023 </p>
+</footer>
 </body>
 </html>
