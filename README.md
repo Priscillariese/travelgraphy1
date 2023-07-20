@@ -47,4 +47,4 @@ For any inquiries or feedback, please reach out to the Travelgraphy team at @car
 
 ## LINKS
 - Project: https://travelgraphyapp.adaptable.app/
- - Slides Apresentation
+ - Slides Apresentation: https://docs.google.com/presentation/d/1BQtDQIWt55YY3sN3wCVnz_vk7QxYFWOVeWpCQAsHvdU/edit?usp=sharing

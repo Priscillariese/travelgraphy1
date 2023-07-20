@@ -451,11 +451,6 @@ main section.image img:hover {
     clip-path: circle(150px at 50px 300px);
     z-index: -1;
 }
-
-
-
-
-
   /* All posts photos */
 
   :root {
@@ -556,7 +551,6 @@ main section.image img:hover {
    
   }
 
-
   #buttonDU  {
     display: inline-block;
     padding: 10px 20px;
@@ -568,7 +562,6 @@ main section.image img:hover {
     margin-right: 10px;
   }
   
- 
 
 @media only screen and (min-width: 900px) and (max-width: 1200px) {
   section.images img {
