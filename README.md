@@ -42,9 +42,9 @@ The Travelgraphy team would like to thank the open-source community for their co
 
 Special thanks to our mentors and advisors for their guidance and support throughout the development process.
 
-### CONTACT
+## CONTACT
 For any inquiries or feedback, please reach out to the Travelgraphy team at @carolinefabri.dev@hotmail.com or @priscillariese.dev@hotmail.com
 
-### LINKS
-- Link project https://travelgraphyapp.adaptable.app/
+## LINKS
+- Project: https://travelgraphyapp.adaptable.app/
  - Slides Apresentation
