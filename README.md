@@ -8,15 +8,15 @@ The application is developed with ES6, Node.js, HTTP, Express, EJS, Mongoose, Co
 
 ## FEATURES
 
-User Authentication: Travelgraphy allows users to create personal accounts and securely log in to access their travel photos and account settings.
+- User Authentication: Travelgraphy allows users to create personal accounts and securely log in to access their travel photos and account settings.
 
-Photo Upload: Users can upload their travel photos to the platform, accompanied by titles, locations, and descriptions.
+- Photo Upload: Users can upload their travel photos to the platform, accompanied by titles, locations, and descriptions.
 
-Photo Management: Users have the ability to update or delete their uploaded photos, providing full control over their content.
+- Photo Management: Users have the ability to update or delete their uploaded photos, providing full control over their content.
 
-User Dashboard: The application provides a user-friendly dashboard where users can view and manage their uploaded photos.
+- User Dashboard: The application provides a user-friendly dashboard where users can view and manage their uploaded photos.
 
-Responsive Design: Travelgraphy is designed to be responsive and accessible on various devices, including desktop and mobile. 
+- Responsive Design: Travelgraphy is designed to be responsive and accessible on various devices, including desktop and mobile. 
 
 
 ![Installation](/public/images/readme.jpeg)
